@@ -82,7 +82,7 @@ The log focuses on SimHub bridge state and Govee discovery/selection details so 
 
 ## Updates
 
-The in-plugin updater stages the new DLL and applies it after SimHub closes, then restarts SimHub. This avoids replacing the plugin DLL while SimHub still has it loaded.
+The in-plugin updater downloads the new DLL, replaces the current plugin DLL using the same direct self-update pattern used by the companion notification plugins, then asks SimHub to restart.
 
 ## Notes
 
