@@ -62,6 +62,7 @@ Manual:
 - `Enable cockpit ambient lighting`: turns this plugin's output on or off without changing SimHub Ambient Lights settings or device selections.
 - `Output mode`: use `Global` for one shared cockpit signal, or `Screen thirds / triples` to assign lamps to `All`, `Left`, `Center` or `Right` cockpit zones.
 - `Colour amount`: controls how much sampled cockpit colour reaches the lamps. Lower values move output toward grayscale/brightness-only response.
+- `Force cockpit lighting above SimHub effects`: last-resort priority override for selected lights when a continuous SimHub effect keeps this plugin hidden. Alert effects on those lights may be hidden while enabled.
 - `Unselected SimHub lights`: sets the fixed colour and intensity for Ambient Light devices enabled in SimHub but not selected in this plugin.
 - `Reset learned mask`: fallback button for cases where automatic mask learning clearly picked the wrong cockpit area.
 
@@ -90,7 +91,7 @@ This avoids guessing physical layouts. For example, some light-bar kits are two 
 
 ## Effects Priority
 
-Cockpit Auto Ambient Light writes a base lighting layer through SimHub's colour effects profile. This is intentional: normal SimHub effects with higher priority can overlay it.
+Cockpit Auto Ambient Light writes one base lighting layer through SimHub's colour effects profile. This is intentional: normal SimHub effects with higher priority can overlay it.
 
 Good examples of effects that can stay enabled:
 
@@ -99,11 +100,11 @@ Good examples of effects that can stay enabled:
 - Spotter, race control or notification flashes.
 - Short notification effects.
 
-If another plugin or profile runs a constant ambient-light effect on the same lamps, that effect can hide this plugin all the time. Disable those continuous ambient effects in that profile/plugin, keep only temporary alerts, or enable `Force cockpit lighting above SimHub effects` from the Main tab.
+If another plugin or profile runs a constant ambient-light effect on the same lamps, that effect can hide this plugin all the time. Disable those continuous ambient effects in that profile/plugin, keep only temporary alerts, or enable `Force cockpit lighting above SimHub effects` from the Main tab as a last resort.
 
-`Force cockpit lighting above SimHub effects` is a global priority override for selected lights. Use it only when another continuous effect keeps this plugin hidden. Pit limiter, flags and other alerts on those selected lights may be hidden while it is enabled.
+`Force cockpit lighting above SimHub effects` is a global priority override for selected lights. It moves the same cockpit lighting layer above normal effects; it does not create a second output layer. Use it only when another continuous effect keeps this plugin hidden. Pit limiter, flags and other alerts on those selected lights may be hidden while it is enabled.
 
-When `Prioritize cockpit lighting during dark mode` is enabled, this priority is reversed only while dark mode is active. Cockpit lighting can then win over fixed external dark mode colours, but normal effects on the same lights may be hidden until dark mode turns off. If the global force option is enabled, the dark-mode-only priority option is already covered.
+When `Prioritize cockpit lighting during dark mode` is enabled, this priority is reversed only while dark mode is active. Cockpit lighting can then win over fixed external dark mode colours, but normal effects on the same lights may be hidden until dark mode turns off. If the global force option is enabled, the dark-mode-only priority option is already covered and is disabled in the UI.
 
 ## Dark Mode
 
@@ -122,6 +123,8 @@ It can be controlled locally by this plugin or synced from Lovely Plugin / Danie
 
 - Off: normal SimHub colour effects stay above this plugin. This preserves alert effects, but fixed external dark mode effects can hide cockpit brightness changes.
 - On: this plugin moves above normal effects during dark mode so its dynamic dark-mode lighting remains visible. Compromise: normal effects on the same lights may not show until dark mode turns off.
+
+If `Force cockpit lighting above SimHub effects` is enabled, cockpit lighting already has priority globally, so the dark-mode-only priority control is disabled.
 
 External dark mode properties are read at a low rate for this feature; they are not polled every frame.
 
