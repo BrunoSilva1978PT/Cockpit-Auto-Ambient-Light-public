@@ -21,6 +21,7 @@ This public repository contains releases only. The plugin source code is private
 - Lets the user scale the dark-mode base colour separately from cockpit highlights and per-device brightness ranges.
 - Writes a base lighting layer below higher-priority SimHub colour effects, so temporary alerts and notification plugins can still take control.
 - Can optionally prioritize cockpit lighting while dark mode is active when fixed external dark mode effects hide cockpit brightness changes.
+- Can optionally force cockpit lighting above SimHub effects when a continuous external effect hides this plugin.
 
 ## Requirements
 
@@ -98,9 +99,11 @@ Good examples of effects that can stay enabled:
 - Spotter, race control or notification flashes.
 - Short notification effects.
 
-If another plugin or profile runs a constant ambient-light effect on the same lamps, that effect can hide this plugin all the time. Disable those continuous ambient effects in that profile/plugin, or keep only temporary alerts. Examples include DNR, ATSR-HUB, or any custom SimHub profile effect that constantly drives the same lights.
+If another plugin or profile runs a constant ambient-light effect on the same lamps, that effect can hide this plugin all the time. Disable those continuous ambient effects in that profile/plugin, keep only temporary alerts, or enable `Force cockpit lighting above SimHub effects` from the Main tab.
 
-When `Prioritize cockpit lighting during dark mode` is enabled, this priority is reversed only while dark mode is active. Cockpit lighting can then win over fixed external dark mode colours, but normal effects on the same lights may be hidden until dark mode turns off.
+`Force cockpit lighting above SimHub effects` is a global priority override for selected lights. Use it only when another continuous effect keeps this plugin hidden. Pit limiter, flags and other alerts on those selected lights may be hidden while it is enabled.
+
+When `Prioritize cockpit lighting during dark mode` is enabled, this priority is reversed only while dark mode is active. Cockpit lighting can then win over fixed external dark mode colours, but normal effects on the same lights may be hidden until dark mode turns off. If the global force option is enabled, the dark-mode-only priority option is already covered.
 
 ## Dark Mode
 
