@@ -30,8 +30,12 @@ This public repository contains releases only. The plugin source code is private
 - SimHub Ambient Lights configured with Philips Hue, Govee or other supported devices.
 - SimHub Ambient Lights master output enabled.
 
-## Installation
+## Screen Capture Notes
 
+The plugin uses SimHub's native Ambient Lights screen capture. If that capture freezes, the plugin cannot learn or update cockpit lighting from new frames until SimHub receives live capture again.
+
+Some games can block or freeze native screen capture when running in fullscreen mode. If SimHub Ambient Lights capture freezes after entering the track, check the game executable Compatibility settings and make sure `Disable fullscreen optimizations` is not enabled. Borderless/windowed mode is the usual fallback when a game still blocks capture.
+## Installation
 Recommended:
 
 1. Download `Install-CockpitAutoAmbientLight.exe` from the latest release.
