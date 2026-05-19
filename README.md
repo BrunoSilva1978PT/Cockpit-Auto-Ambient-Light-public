@@ -8,6 +8,7 @@ This public repository contains release binaries and user documentation. The plu
 
 - Uses SimHub's native Ambient Lights capture engine; it does not open a second screen-capture pipeline.
 - Learns a cockpit mask automatically while you drive in cockpit camera.
+- Works best with a stable cockpit camera and minimal HUD/overlay elements over the cockpit view.
 - Stores the last accepted cockpit mask per game/car and reuses it on the next session.
 - Keeps checking a candidate mask in the background for FOV, seat position and cockpit-camera changes.
 - Drives lights already configured and enabled inside SimHub Ambient Lights.
@@ -33,7 +34,7 @@ This public repository contains release binaries and user documentation. The plu
 - Windows with SimHub installed.
 - SimHub Ambient Lights configured with Hue, Govee or another supported Ambient Lights output.
 - SimHub Ambient Lights master output enabled.
-- Cockpit camera usage in-game.
+- Cockpit camera usage in-game, preferably with camera shake/look-to-apex/head movement disabled or kept low.
 
 ## Installation
 
@@ -61,7 +62,7 @@ Manual:
 6. Choose `Global` or `Screen thirds / triples` output.
 7. Optional: enable `Full control of selected lights` if this plugin should own selected lights and provide idle/alert output.
 8. Optional: configure alert effects, VR mode and dark mode.
-9. Drive in cockpit camera. The cockpit mask learns automatically while the car moves.
+9. Drive in cockpit camera. For best learning, avoid heavy cockpit camera movement and large overlays over the cockpit view.
 10. Use `Identify` on the Devices tab to confirm physical lamp or segment routing.
 
 ## Tabs Overview
@@ -153,11 +154,13 @@ The plugin depends on SimHub Ambient Lights receiving live capture frames. If Si
 
 Some games can block native screen capture in fullscreen mode. If capture freezes after entering the track, check the game executable Compatibility settings and leave `Disable fullscreen optimizations` off. Borderless/windowed mode is the usual fallback when a game still blocks capture.
 
+For best mask learning, use a stable cockpit camera. Camera shake, look-to-apex/head movement and large HUD or overlay elements over the cockpit view can confuse the detector because they change what appears stable inside the captured cockpit area.
+
 ## Troubleshooting
 
 - Lights do not react: confirm the lights are enabled in SimHub Ambient Lights and selected in this plugin.
 - Wrong physical lamp/segment: use `Identify` in the Devices tab.
-- Mask never becomes active: drive above walking speed in cockpit camera.
+- Mask never becomes active or looks wrong: drive above walking speed in cockpit camera, use a stable cockpit camera and keep large overlays away from the cockpit area when possible.
 - Other SimHub effects hide cockpit light: use Full control or disable continuous effects on the same lamps.
 - Output appears stuck: use `Reset plugin output` first. Use `Reset learned mask` only if the mask itself is wrong.
 - Triples/screen zones look too colourful: lower `Colour amount` to keep brightness response while reducing colour contamination.

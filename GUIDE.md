@@ -21,13 +21,15 @@ The plugin does not discover Hue or Govee devices directly. Configure and enable
 7. If you use Full control, choose which alert effects each selected lamp accepts.
 8. Optional: configure built-in alerts on the Effects tab.
 9. Optional: configure VR mode or dark mode on the Overrides tab.
-10. Drive in cockpit camera. The mask learns automatically while the car moves.
+10. Drive in cockpit camera. For best learning, use a stable camera and avoid large overlays over the cockpit view.
 
 ## Capture And Mask Learning
 
 The plugin uses SimHub's native Ambient Lights capture engine. It subscribes to SimHub capture updates, then copies and processes the latest bitmap outside the native capture callback. If SimHub is busy with its bitmap, the plugin skips that frame instead of waiting inside the capture path.
 
 Mask learning only runs while the car is moving. This helps the detector separate stable cockpit surfaces from the moving outside world.
+
+For best results, keep the cockpit camera stable while the mask learns. Camera shake, look-to-apex/head movement and large HUD or overlay elements over the cockpit view can confuse the detector because they change what appears stable inside the captured cockpit area.
 
 The last accepted mask is stored per game and car. On the next session, the stored mask is used as a startup seed. While you drive, the plugin keeps learning a candidate mask in the background. If the candidate stays different long enough, it can replace the current mask automatically. This covers FOV changes, seat position changes and different cockpit-camera views.
 
@@ -268,7 +270,7 @@ Temporary alert effects are expected to override cockpit light. If another plugi
 
 ### Mask Never Becomes Active
 
-Drive above walking speed in cockpit camera. The detector only learns while the car is moving.
+Drive above walking speed in cockpit camera. The detector only learns while the car is moving. Disable heavy cockpit camera movement and keep large overlays away from the cockpit area when possible.
 
 ### SimHub Capture Freezes In Fullscreen
 
@@ -284,4 +286,4 @@ Use `Reset plugin output`. It restarts SimHub Ambient Lights output and keeps th
 
 ### Mask Looks Wrong
 
-Use `Reset learned mask`. It clears the stored mask for the current game/car and starts learning again while driving.
+Use `Reset learned mask`. It clears the stored mask for the current game/car and starts learning again while driving. If the issue repeats, reduce cockpit camera movement and remove large overlays from the cockpit view before learning again.
