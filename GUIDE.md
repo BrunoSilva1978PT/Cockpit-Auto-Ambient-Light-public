@@ -311,3 +311,11 @@ Use `Reset plugin output`. It restarts SimHub Ambient Lights output and keeps th
 ### Mask Looks Wrong
 
 Use `Reset learned mask`. It clears the stored mask for the current game/car and starts learning again while driving. If the issue repeats, reduce cockpit camera movement and remove large overlays from the cockpit view before learning again.
+
+## Support / Contact
+
+For questions, problems or setup help, contact Bruno Silva:
+
+- Email: bruno.1978@gmail.com
+- GitHub issues: https://github.com/BrunoSilva1978PT/Cockpit-Auto-Ambient-Light-public/issues
+- Discord: Bruno Silva (username: brunosilva1978)

@@ -187,6 +187,12 @@ See [GUIDE.md](GUIDE.md) for a more detailed user guide.
 
 Created by Bruno Silva.
 
+For questions, problems or setup help:
+
+- Email: bruno.1978@gmail.com
+- GitHub issues: https://github.com/BrunoSilva1978PT/Cockpit-Auto-Ambient-Light-public/issues
+- Discord: Bruno Silva (username: brunosilva1978)
+
 Other plugins:
 
 - https://github.com/BrunoSilva1978PT/WhatsApp-SimHub-Plugin
