@@ -21,8 +21,8 @@ This public repository contains release binaries and user documentation. The plu
 - Provides `Effects first` and `Full control of selected lights` priority modes.
 - Provides idle colour/brightness for pause, replay, menus, no game, waiting for data or no learned mask while Full control is enabled.
 - Provides a hold-idle-colour action for button/StreamDeck workflows.
-- Includes built-in alert effects for engine start, racing flags, spotter, low fuel, redline and pit limiter.
-- Lets each selected lamp choose which built-in alert effects it accepts.
+- Includes built-in alert effects for engine start, racing flags, spotter, low fuel, redline, pit limiter, pedals, wheel lock and wheel spin.
+- Lets each enabled endpoint choose which built-in alert effects it accepts, even when it is not selected for cockpit output.
 - Includes optional VR fixed-colour mode using automatic experimental detection or a user-selected SimHub property.
 - Includes dark mode support using local plugin state, Lovely Plugin true dark mode properties, or Daniel Newman Racing true dark mode properties.
 - Adds normal SimHub control actions and Control Mapper roles for StreamDeck workflows.
@@ -58,10 +58,10 @@ Manual:
 2. Make sure SimHub Ambient Lights master output is enabled.
 3. Open Cockpit Auto Ambient Light in SimHub.
 4. Keep `Enable cockpit ambient lighting` enabled.
-5. Open the Devices tab and select the lamps or Govee segments this plugin may control.
+5. Open the Devices tab and select the lamps or Govee segments this plugin may control for cockpit output.
 6. Choose `Global` or `Screen thirds / triples` output.
-7. Optional: enable `Full control of selected lights` if this plugin should own selected lights and provide idle/alert output.
-8. Optional: configure alert effects, VR mode and dark mode.
+7. Optional: enable `Full control of selected lights` if this plugin should own selected cockpit lights and provide idle/alert output.
+8. Optional: configure alert effects, including effects-only unticked endpoints, VR mode and dark mode.
 9. Drive in cockpit camera. For best learning, avoid heavy cockpit camera movement and large overlays over the cockpit view.
 10. Use `Identify` on the Devices tab to confirm physical lamp or segment routing.
 
@@ -74,9 +74,9 @@ Manual:
 - `Capture monitor`: uses SimHub's native Ambient Lights capture setup.
 - `Output mode`: `Global` or `Screen thirds / triples`.
 - `Colour amount`: 0% is grayscale/brightness-only, 100% uses the sampled cockpit colour.
-- `Full control of selected lights`: selected lights are owned by this plugin; current SimHub profile effects do not run on those selected lights.
+- `Full control of selected lights`: selected cockpit lights are owned by this plugin; current SimHub profile effects do not run on those selected lights, and built-in alert effects can also drive effects-only unticked endpoints.
 - `Idle colour` and `Idle brightness`: fallback output while Full control is enabled and live cockpit output is not available.
-- `Hold idle colour`: keeps selected lights on the idle colour until toggled off. Requires Full control.
+- `Hold idle colour`: keeps selected lights on the idle colour until toggled off; unticked endpoints keep their fixed unselected output. Requires Full control.
 - `Reset plugin output`: restarts SimHub Ambient Lights output if the output path appears stuck. The learned mask is kept.
 
 ### Devices
@@ -86,12 +86,12 @@ Manual:
 - `Center` follows both center halves together for backwards-compatible center output.
 - Hue lamps have their own cockpit brightness range.
 - Govee device groups share one cockpit brightness range, but each segment can still be selected, identified and zoned separately.
-- `Alert effects` controls which built-in alert effects each selected lamp accepts while Full control is enabled.
+- `Alert effects` controls which built-in alert effects each endpoint accepts while Full control is enabled. It also works on unticked endpoints for effects-only lamps.
 - `Unselected SimHub lights` sets the fixed colour/brightness for Ambient Lights devices enabled in SimHub but not selected in this plugin.
 
 ### Effects
 
-Built-in alert effects run only when `Full control of selected lights` is enabled.
+Built-in alert effects run only when `Full control of selected lights` is enabled. They can be assigned to selected cockpit endpoints or unticked effects-only endpoints.
 
 Locked highest priority:
 
@@ -102,8 +102,11 @@ Custom priority list:
 
 1. Spotter.
 2. Racing flags.
-3. Low fuel.
-4. Redline.
+3. Wheel lock.
+4. Wheel spin.
+5. Low fuel.
+6. Redline.
+7. Pedals.
 
 Available effects:
 
@@ -114,6 +117,9 @@ Available effects:
 - `Low fuel`: percent or liters, low/critical thresholds, Static or Blink per stage, plus acknowledge action.
 - `Redline`: uses SimHub's current car/current gear redline automatically.
 - `Pit limiter`: alternates between two colours.
+- `Pedals`: throttle and brake colours, either static or brightness-scaled by pedal travel. Brake has priority.
+- `Wheel lock`: ABS active when available, with calculated wheel lock while braking as fallback.
+- `Wheel spin`: TC active when available, with calculated wheel spin while accelerating as fallback.
 
 ### Overrides
 
@@ -135,6 +141,7 @@ Available effects:
 Normal SimHub action bindings are available from the plugin UI for:
 
 - Toggle plugin.
+- Reset plugin output.
 - Reset learned mask.
 - Hold idle colour.
 - Toggle dark mode.
@@ -142,11 +149,12 @@ Normal SimHub action bindings are available from the plugin UI for:
 
 For StreamDeck workflows using SimHub Control Mapper roles, use these role names:
 
-- `Cockpit Auto Ambient Light - Toggle plugin`
-- `Cockpit Auto Ambient Light - Reset learned mask`
-- `Cockpit Auto Ambient Light - Hold idle colour`
-- `Cockpit Auto Ambient Light - Toggle dark mode`
-- `Cockpit Auto Ambient Light - Acknowledge low fuel`
+- `Cockpit Ambient - Toggle plugin`
+- `Cockpit Ambient - Reset output`
+- `Cockpit Ambient - Reset mask`
+- `Cockpit Ambient - Hold idle colour`
+- `Cockpit Ambient - Toggle dark mode`
+- `Cockpit Ambient - Acknowledge low fuel`
 
 ## Capture Notes
 
@@ -158,7 +166,7 @@ For best mask learning, use a stable cockpit camera. Camera shake, look-to-apex/
 
 ## Troubleshooting
 
-- Lights do not react: confirm the lights are enabled in SimHub Ambient Lights and selected in this plugin.
+- Lights do not react: confirm the lights are enabled in SimHub Ambient Lights and selected for cockpit output or at least one alert effect in this plugin.
 - Wrong physical lamp/segment: use `Identify` in the Devices tab.
 - Mask never becomes active or looks wrong: drive above walking speed in cockpit camera, use a stable cockpit camera and keep large overlays away from the cockpit area when possible.
 - Other SimHub effects hide cockpit light: use Full control or disable continuous effects on the same lamps.
