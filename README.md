@@ -13,9 +13,10 @@ This public repository contains release binaries and user documentation. The plu
 - Keeps checking a candidate mask in the background for FOV, seat position and cockpit-camera changes.
 - Drives lights already configured and enabled inside SimHub Ambient Lights.
 - Supports Philips Hue lamps and Govee segments exposed by SimHub.
-- Supports `Global` output or `Screen thirds / triples` output.
+- Supports `Global` output or `Cockpit zones / triples` output.
 - In triples/wide captures, zones use the screen layout. On single-screen captures, zones adapt to the learned cockpit mask instead of blindly splitting the monitor.
-- Zone choices are `All`, `Left`, `Center-left`, `Center`, `Center-right` and `Right`. `Center` combines both center halves.
+- Zone choices include `All`, left/right inner and outer zones, center-left/right, lower cockpit, and lower cockpit left/center/right. `Left`, `Center` and `Right` remain available as combined outputs for simpler rigs.
+- Provides per-game light sensitivity and response smoothing for games with softer or more abrupt brightness transitions.
 - Lets each Hue lamp use its own cockpit brightness range.
 - Lets each Govee device group share one cockpit brightness range while each segment remains selectable and zoned independently.
 - Provides `Effects first` and `Full control of selected lights` priority modes.
@@ -24,9 +25,9 @@ This public repository contains release binaries and user documentation. The plu
 - Includes built-in alert effects for engine start, racing flags, spotter, low fuel, redline, pit limiter, pedals, wheel lock and wheel spin.
 - Lets each enabled endpoint choose which built-in alert effects it accepts, even when it is not selected for cockpit output.
 - Includes optional VR fixed-colour mode using automatic experimental detection or a user-selected SimHub property.
-- Includes dark mode support using local plugin state, Lovely Plugin true dark mode properties, or Daniel Newman Racing true dark mode properties.
+- Includes dark mode support using local plugin state, Lovely Plugin true dark mode properties, or Daniel Newman Racing true dark mode properties, with per-endpoint dark mode selection.
 - Adds normal SimHub control actions and Control Mapper roles for StreamDeck workflows.
-- Provides diagnostics for game/car state, mask state, brightness, adaptive exposure, SimHub capture, runtime gates, VR state and debug logging.
+- Provides diagnostics for game/car state, mask state, direct cockpit zones, lower cockpit zones, adaptive exposure, SimHub capture, runtime gates, VR state and debug logging.
 - Includes an in-plugin updater and a standalone installer with backup/restore around DLL replacement.
 
 ## Requirements
@@ -59,7 +60,7 @@ Manual:
 3. Open Cockpit Auto Ambient Light in SimHub.
 4. Keep `Enable cockpit ambient lighting` enabled.
 5. Open the Devices tab and select the lamps or Govee segments this plugin may control for cockpit output.
-6. Choose `Global` or `Screen thirds / triples` output.
+6. Choose `Global` or `Cockpit zones / triples` output.
 7. Optional: enable `Full control of selected lights` if this plugin should own selected cockpit lights and provide idle/alert output.
 8. Optional: configure alert effects, including effects-only unticked endpoints, VR mode and dark mode.
 9. Drive in cockpit camera. For best learning, avoid heavy cockpit camera movement and large overlays over the cockpit view.
@@ -72,8 +73,9 @@ Manual:
 - `Enable cockpit ambient lighting`: turns this plugin output on/off without changing selected devices.
 - `Toggle plugin button`: normal SimHub action binding for enabling/disabling the plugin.
 - `Capture monitor`: uses SimHub's native Ambient Lights capture setup.
-- `Output mode`: `Global` or `Screen thirds / triples`.
+- `Output mode`: `Global` or `Cockpit zones / triples`.
 - `Colour amount`: 0% is grayscale/brightness-only, 100% uses the sampled cockpit colour.
+- `Game tuning`: per-game light sensitivity and response smoothing. Defaults are 100% sensitivity and 0% smoothing.
 - `Full control of selected lights`: selected cockpit lights are owned by this plugin; current SimHub profile effects do not run on those selected lights, and built-in alert effects can also drive effects-only unticked endpoints.
 - `Idle colour` and `Idle brightness`: fallback output while Full control is enabled and live cockpit output is not available.
 - `Hold idle colour`: keeps selected lights on the idle colour until toggled off; unticked endpoints keep their fixed unselected output. Requires Full control.
@@ -82,11 +84,12 @@ Manual:
 ### Devices
 
 - Select Hue lamps and Govee segments that this plugin may control.
-- Assign each selected endpoint to `All`, `Left`, `Center-left`, `Center`, `Center-right` or `Right` when using `Screen thirds / triples`.
-- `Center` follows both center halves together for backwards-compatible center output.
+- Assign each selected endpoint to `All`, detailed cockpit zones, or lower cockpit zones when using `Cockpit zones / triples`.
+- `Left`, `Center` and `Right` are combined outputs. Use `Left outer`, `Left inner`, `Center-left`, `Center-right`, `Right inner` and `Right outer` for direct sampled zones.
+- `Lower cockpit` uses the lowest part of the learned cockpit mask. Use `Lower cockpit left`, `Lower cockpit center` and `Lower cockpit right` when you want that lower area split by side.
 - Hue lamps have their own cockpit brightness range.
 - Govee device groups share one cockpit brightness range, but each segment can still be selected, identified and zoned separately.
-- `Alert effects` controls which built-in alert effects each endpoint accepts while Full control is enabled. It also works on unticked endpoints for effects-only lamps.
+- `Effects` controls per-endpoint dark mode and which built-in alert effects each endpoint accepts. Alert effects require Full control; dark mode can also run on unselected lights.
 - `Unselected SimHub lights` sets the fixed colour/brightness for Ambient Lights devices enabled in SimHub but not selected in this plugin.
 
 ### Effects
@@ -127,11 +130,12 @@ Available effects:
 - `Automatic experimental` VR detection checks OpenXR Toolkit and SteamVR/OpenVR.
 - `SimHub property` VR detection is best when another plugin or workflow exposes a reliable VR state.
 - `Dark mode`: uses a local plugin colour/state or external Lovely Plugin / Daniel Newman Racing true dark mode properties.
-- Dark mode uses a steady base colour and can blend real cockpit light over it when brightness rises.
+- Dark mode uses a steady base colour and can layer real cockpit light over it when brightness rises, so modest cockpit highlights are not hidden by the base colour.
+- The Devices tab decides which selected or unselected endpoints accept dark mode output.
 
 ### Diagnostics
 
-- Shows current game/car, mask state, signal summary, zone brightness, zone exposure and mask blocks.
+- Shows current game/car, mask state, signal summary, direct zone brightness, lower cockpit zone brightness, exposure, gain and mask blocks.
 - Shows SimHub Ambient Lights output state, capture source, capture override state, selected light count and runtime gates.
 - Includes `Reset learned mask`, which clears the stored mask for the current game/car and starts learning again while driving.
 - Includes optional debug logging to `Documents\CockpitAmbientLight\Logs\plugin.log`.

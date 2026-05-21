@@ -51,22 +51,23 @@ Use `Reset plugin output` first when lights/capture output appear stuck. Use `Re
 
 Every selected lamp follows the combined cockpit signal. This is the safest mode for most rigs.
 
-### Screen Thirds / Triples
+### Cockpit Zones / Triples
 
 This mode exposes zone output for selected lamps.
 
 Available lamp zones:
 
 - `All`: combined cockpit signal.
-- `Left`: left cockpit/screen zone.
-- `Center-left`: left half of the center zone.
-- `Center`: both center halves combined.
-- `Center-right`: right half of the center zone.
-- `Right`: right cockpit/screen zone.
+- `Left outer` and `Left inner`: direct sampled left-side zones.
+- `Center-left` and `Center-right`: direct sampled center zones.
+- `Right inner` and `Right outer`: direct sampled right-side zones.
+- `Lower cockpit`: the lowest part of the learned cockpit mask.
+- `Lower cockpit left`, `Lower cockpit center` and `Lower cockpit right`: lower cockpit split by side.
+- `Left`, `Center` and `Right`: combined outputs for simpler rigs.
 
 Wide/triple captures use screen zones suited for triple layouts. Single-screen captures use adaptive mask zones instead of blindly splitting one monitor into equal thirds.
 
-Use `Center-left` and `Center-right` when you have enough lamps to make the center of the cockpit react with more direction. Use `Center` when one lamp should follow the whole center area.
+Use direct zones when you have enough lamps to make the cockpit react with more direction. Use `Left`, `Center` or `Right` when one lamp should follow a whole combined side/center area.
 
 ### Colour Amount
 
@@ -86,6 +87,17 @@ Cockpit brightness range is configured on the Devices tab.
 - Govee segments still keep their own selection, identify button and zone.
 
 Cockpit brightness range applies only to cockpit/dynamic output. Idle colour, VR fixed colour and built-in alert effects use their own brightness controls.
+
+### Game Tuning
+
+`Light sensitivity` and `Response smoothing` are saved per game from the General tab.
+
+- 100% sensitivity and 0% smoothing keep the default response.
+- Lower sensitivity reduces the strength of bright/dark swings.
+- Higher sensitivity makes cockpit light changes more aggressive.
+- Higher smoothing makes transitions slower and calmer, useful for trucks, open cockpits or games with rapid shadow changes.
+
+These sliders tune output only. They do not change cockpit mask learning.
 
 ### Unselected Lamps
 
@@ -114,7 +126,8 @@ Hue devices are listed by lamp/area. Govee devices are grouped by SimHub control
 For each endpoint, choose:
 
 - Alert effects accepted by that endpoint.
-- Zone selection, when the endpoint is selected for cockpit output and Screen thirds / triples is used.
+- Zone selection, when the endpoint is selected for cockpit output and Cockpit zones / triples is used.
+- Dark mode selection, for selected or unselected endpoints that should accept dark-mode output.
 - Cockpit brightness range, for Hue lamps or Govee groups.
 - Fixed colour/brightness for unselected SimHub lights.
 
@@ -227,14 +240,16 @@ Dark mode can use:
 - Lovely Plugin true dark mode properties.
 - Daniel Newman Racing true dark mode properties.
 
-When dark mode is active, the selected colour is used as the base. Cockpit light blends over it when the adaptive cockpit output gets bright enough.
+When dark mode is active, the selected colour is used as the base. Cockpit light is layered over it when the adaptive cockpit output gets bright enough, so the base colour does not hide modest brightness changes.
+
+The Devices tab decides which endpoints accept dark mode. It can be enabled on selected cockpit lights or on unselected SimHub Ambient Lights endpoints.
 
 `Base colour brightness` scales only the steady dark-mode base colour used by this plugin. Built-in alert effects still have priority while Full control is enabled.
 
 `Cockpit blend start` is based on adaptive cockpit output before each device applies its own min/max range:
 
-- Lower values let cockpit light blend over dark mode sooner.
-- Higher values keep the dark mode colour dominant for longer.
+- Lower values let cockpit light layer over dark mode sooner.
+- The layer ramps in over a short output range instead of waiting for 100% brightness.
 
 `Prioritize cockpit lighting during dark mode` changes priority only while dark mode is active:
 
@@ -264,8 +279,9 @@ The Diagnostics tab shows:
 
 - Current game and car.
 - Mask state and last calibration.
-- Overall, left, center-left, center, center-right and right brightness values.
-- Adaptive exposure and gain.
+- Overall plus direct sampled zones: left outer, left inner, center-left, center-right, right inner and right outer.
+- Lower cockpit plus lower cockpit left, center and right.
+- Adaptive exposure, gain and mask block counts.
 - SimHub Ambient Lights output state.
 - Capture source and capture frame counters.
 - Selected light count.
