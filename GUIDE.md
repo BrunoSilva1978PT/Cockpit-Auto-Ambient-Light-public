@@ -12,18 +12,21 @@ Alert effects can also be assigned to endpoints that are not selected for cockpi
 
 The plugin does not discover Hue or Govee devices directly. Configure and enable supported devices in SimHub Ambient Lights first; this plugin reuses those devices and their capture/effects pipeline.
 
+The plugin also does not rewrite SimHub Ambient Lights effect indexes. Each lamp or segment should have its own unique Effects index in SimHub, otherwise multiple endpoints can share one output slot and appear to ignore their cockpit zone or alert assignment.
+
 ## First Setup
 
 1. Configure Philips Hue, Govee or other supported devices in SimHub Ambient Lights.
-2. Make sure the SimHub Ambient Lights master output is enabled.
-3. Open Cockpit Auto Ambient Light in SimHub.
-4. Keep `Enable cockpit ambient lighting` enabled in the General tab.
-5. Open the Devices tab, refresh if needed, and tick the lights or Govee segments this plugin should control for cockpit output.
-6. Adjust each Hue lamp or Govee device cockpit range if needed.
-7. If you use Full control, choose which alert effects each endpoint accepts, including unticked effects-only endpoints.
-8. Optional: configure built-in alerts on the Effects tab.
-9. Optional: configure VR mode or dark mode on the Overrides tab.
-10. Drive in cockpit camera. For best learning, use a stable camera and avoid large overlays over the cockpit view.
+2. Check that every lamp or segment has a different Effects index in SimHub Ambient Lights.
+3. Make sure the SimHub Ambient Lights master output is enabled.
+4. Open Cockpit Auto Ambient Light in SimHub.
+5. Keep `Enable cockpit ambient lighting` enabled in the General tab.
+6. Open the Devices tab, refresh if needed, and tick the lights or Govee segments this plugin should control for cockpit output.
+7. Adjust each Hue lamp or Govee device cockpit range if needed.
+8. If you use Full control, choose which alert effects each endpoint accepts, including unticked effects-only endpoints.
+9. Optional: configure built-in alerts on the Effects tab.
+10. Optional: configure VR mode or dark mode on the Overrides tab.
+11. Drive in cockpit camera. For best learning, use a stable camera and avoid large overlays over the cockpit view.
 
 ## Capture And Mask Learning
 
@@ -122,6 +125,8 @@ Cockpit Auto Ambient Light writes a base layer through SimHub's Ambient Lights p
 Use the Devices tab to select which SimHub Ambient Lights endpoints this plugin controls.
 
 Hue devices are listed by lamp/area. Govee devices are grouped by SimHub controller/device, but each segment is listed as its own selectable endpoint. Use `Identify` per lamp or segment to confirm the physical routing.
+
+Important: keep one unique Effects index per physical lamp or Govee segment in SimHub Ambient Lights. If two endpoints share the same index, SimHub can route them through the same output slot, so they may mirror each other even when this plugin assigns different cockpit zones or alerts. The plugin warns about this setup requirement but leaves SimHub indexes untouched.
 
 For each endpoint, choose:
 
@@ -307,6 +312,12 @@ Temporary alert effects are expected to override cockpit light. If another plugi
 ### Effects-Only Lights Do Not Show Alerts
 
 Effects-only lamps still require Full control and at least one alert effect ticked on the Devices tab. They do not fire during Hold idle colour, pause or idle fallback; those states intentionally keep alerts cleared.
+
+### SimHub Scene Settings Are Reset
+
+When the plugin is enabled, it saves the current SimHub Ambient Lights scene brightness, effect profile brightness and luminosity gamma settings before applying its own 100% brightness and neutral gamma defaults. When the plugin is disabled, those saved settings are restored.
+
+If you change those SimHub settings while this plugin is active, the plugin keeps the new values instead of overwriting them on disable, and saves them as the new restore point.
 
 ### Mask Never Becomes Active
 

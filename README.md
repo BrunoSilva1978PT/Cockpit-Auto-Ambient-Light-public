@@ -35,6 +35,7 @@ This public repository contains release binaries and user documentation. The plu
 - Windows with SimHub installed.
 - SimHub Ambient Lights configured with Hue, Govee or another supported Ambient Lights output.
 - SimHub Ambient Lights master output enabled.
+- One unique SimHub Ambient Lights Effects index per lamp or segment.
 - Cockpit camera usage in-game, preferably with camera shake/look-to-apex/head movement disabled or kept low.
 
 ## Installation
@@ -56,15 +57,16 @@ Manual:
 ## Quick Setup
 
 1. Configure your Hue, Govee or other lights in SimHub Ambient Lights first.
-2. Make sure SimHub Ambient Lights master output is enabled.
-3. Open Cockpit Auto Ambient Light in SimHub.
-4. Keep `Enable cockpit ambient lighting` enabled.
-5. Open the Devices tab and select the lamps or Govee segments this plugin may control for cockpit output.
-6. Choose `Global` or `Cockpit zones / triples` output.
-7. Optional: enable `Full control of selected lights` if this plugin should own selected cockpit lights and provide idle/alert output.
-8. Optional: configure alert effects, including effects-only unticked endpoints, VR mode and dark mode.
-9. Drive in cockpit camera. For best learning, avoid heavy cockpit camera movement and large overlays over the cockpit view.
-10. Use `Identify` on the Devices tab to confirm physical lamp or segment routing.
+2. Check that each lamp or segment has a different Effects index in SimHub Ambient Lights.
+3. Make sure SimHub Ambient Lights master output is enabled.
+4. Open Cockpit Auto Ambient Light in SimHub.
+5. Keep `Enable cockpit ambient lighting` enabled.
+6. Open the Devices tab and select the lamps or Govee segments this plugin may control for cockpit output.
+7. Choose `Global` or `Cockpit zones / triples` output.
+8. Optional: enable `Full control of selected lights` if this plugin should own selected cockpit lights and provide idle/alert output.
+9. Optional: configure alert effects, including effects-only unticked endpoints, VR mode and dark mode.
+10. Drive in cockpit camera. For best learning, avoid heavy cockpit camera movement and large overlays over the cockpit view.
+11. Use `Identify` on the Devices tab to confirm physical lamp or segment routing.
 
 ## Tabs Overview
 
@@ -80,6 +82,7 @@ Manual:
 - `Idle colour` and `Idle brightness`: fallback output while Full control is enabled and live cockpit output is not available.
 - `Hold idle colour`: keeps selected lights on the idle colour until toggled off; unticked endpoints keep their fixed unselected output. Requires Full control.
 - `Reset plugin output`: restarts SimHub Ambient Lights output if the output path appears stuck. The learned mask is kept.
+- On enable, the plugin saves SimHub Ambient Lights scene brightness/gamma settings before applying its 100% brightness and neutral gamma defaults. On disable, it restores the saved settings. If those SimHub settings were changed while the plugin was active, the plugin keeps them and saves them as the new restore point.
 
 ### Devices
 
@@ -91,6 +94,7 @@ Manual:
 - Govee device groups share one cockpit brightness range, but each segment can still be selected, identified and zoned separately.
 - `Effects` controls per-endpoint dark mode and which built-in alert effects each endpoint accepts. Alert effects require Full control; dark mode can also run on unselected lights.
 - `Unselected SimHub lights` sets the fixed colour/brightness for Ambient Lights devices enabled in SimHub but not selected in this plugin.
+- SimHub Ambient Lights Effects indexes must be unique per lamp/segment. Duplicated indexes can make endpoints mirror each other or ignore different zone assignments.
 
 ### Effects
 
@@ -174,6 +178,7 @@ For best mask learning, use a stable cockpit camera. Camera shake, look-to-apex/
 - Wrong physical lamp/segment: use `Identify` in the Devices tab.
 - Mask never becomes active or looks wrong: drive above walking speed in cockpit camera, use a stable cockpit camera and keep large overlays away from the cockpit area when possible.
 - Other SimHub effects hide cockpit light: use Full control or disable continuous effects on the same lamps.
+- Multiple lamps behave the same in zones: check that each lamp or segment has a unique Effects index in SimHub Ambient Lights.
 - Output appears stuck: use `Reset plugin output` first. Use `Reset learned mask` only if the mask itself is wrong.
 - Triples/screen zones look too colourful: lower `Colour amount` to keep brightness response while reducing colour contamination.
 
