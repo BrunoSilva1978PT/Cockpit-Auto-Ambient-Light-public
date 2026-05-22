@@ -204,6 +204,11 @@ Redline uses SimHub's current car/current gear redline automatically.
 
 Pit limiter alternates between two user colours.
 
+Modes:
+
+- `All lamps together`: default and most compatible. Every lamp that accepts Pit limiter shows colour 1 together, then colour 2 together on the next blink.
+- `Use cockpit zones`: left-side zones start on colour 1, right-side zones start on colour 2, then swap on each blink. Neutral zones such as All, Center and Lower cockpit alternate on their own.
+
 ### Pedals
 
 Pedals can show throttle and brake as static colours or as brightness scaled from pedal travel. Brake has priority over throttle. Use the throttle and brake enable switches when a lamp should react to only one pedal.

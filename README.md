@@ -123,7 +123,7 @@ Available effects:
 - `Spotter`: one colour/speed, with separate left/right acceptance per lamp.
 - `Low fuel`: percent or liters, low/critical thresholds, Static or Blink per stage, plus acknowledge action.
 - `Redline`: uses SimHub's current car/current gear redline automatically.
-- `Pit limiter`: alternates between two colours.
+- `Pit limiter`: alternates between two colours. `All lamps together` is the default and works with any set of lamps; `Use cockpit zones` starts left-side zones on colour 1 and right-side zones on colour 2, then swaps them each blink.
 - `Pedals`: throttle and brake colours, either static or brightness-scaled by pedal travel. Brake has priority.
 - `Wheel lock`: ABS active when available, with calculated wheel lock while braking as fallback.
 - `Wheel spin`: TC active when available, with calculated wheel spin while accelerating as fallback.
