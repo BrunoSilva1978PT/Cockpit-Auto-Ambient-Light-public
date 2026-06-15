@@ -17,3 +17,5 @@ I am currently considering bringing Cockpit Auto Ambient Light back under a fair
 Thank you to everyone who supported the project, tested it, reported issues, gave feedback, and used it in good faith. I genuinely appreciate the community around this plugin.
 
 More information will be shared when a final decision is made.
+
+For more information you can contact me by Email: bruno.1978@gmail.com or reach me on discord brunosilva1978.
