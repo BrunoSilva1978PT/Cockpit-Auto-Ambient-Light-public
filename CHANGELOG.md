@@ -1,5 +1,16 @@
 ﻿# Changelog
 
+## 1.14.2
+
+### Changed
+
+- Documented that Philips Hue Native V1 and Direct V2 can expose the same physical lights with different names and endpoint IDs, so per-endpoint theme colours may need review after switching backend.
+
+### Fixed
+
+- Fixed Direct Hue V2 Identify so disabled Entertainment Areas cannot flash lights through the fallback Hue API path.
+- Fixed Direct Hue V2 discovery, theme endpoint lists and fixed-output snapshots so disabled Entertainment Areas are not treated as active endpoints.
+
 ## 1.14.0
 
 ### Changed

@@ -74,6 +74,8 @@ The Themes tab provides five fixed-output theme slots:
 
 Themes list available endpoints for enabled output types, not only endpoints ticked for cockpit output. This is intentional: themes are for fixed output outside live cockpit driving, so unselected lights can still be part of an idle or VR look.
 
+Philips Hue Native V1 and Direct V2 can expose the same physical lights with different endpoint IDs and names. Theme colours are copied between backends only when the plugin can safely match the endpoints, so review Themes after switching backend.
+
 The Themes tab also exposes bindings for Previous idle theme and Next idle theme. Their StreamDeck Control Mapper roles are:
 
 - `Cockpit Ambient - Previous idle theme`
@@ -90,6 +92,8 @@ Native V1 uses SimHub Ambient Lights as the Hue backend. Configure the Hue bridg
 Direct V2 pairs directly with the Hue bridge, stores this plugin's application key, reads Hue V2 resources and sends output through Hue Entertainment sync. It can discover normal Hue bridges and Bridge Pro installations when they expose the same local Hue API.
 
 Direct V2 requires a selected Hue Entertainment Area. Only lights and channels inside that area are controllable. Gradient-capable Hue lights appear as separate segment rows only when the selected Entertainment Area exposes separate Entertainment channels for that light.
+
+Disabled Direct V2 areas stay saved but their endpoints are not used by Identify, Themes or live output until that area is enabled again.
 
 A Hue bridge only allows one Entertainment sync owner for the same area at a time. While Direct V2 owns an area, the matching SimHub native Hue group is disabled and restored when Direct V2 is released, disabled or forgotten.
 

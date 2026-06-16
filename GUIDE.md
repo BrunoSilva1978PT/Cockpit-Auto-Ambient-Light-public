@@ -126,6 +126,10 @@ Use the Devices tab to select which SimHub Ambient Lights endpoints this plugin 
 
 Hue devices are listed by lamp/area. Govee devices are grouped by SimHub controller/device, but each segment is listed as its own selectable endpoint. Use `Identify` per lamp or segment to confirm the physical routing.
 
+Disabled Hue Direct V2 Entertainment Areas stay saved for later use, but their endpoints are not used by Identify, themes or live output until that area is enabled again.
+
+Philips Hue Native V1 and Direct V2 can expose the same physical lights with different names and endpoint IDs. Direct V2 uses Hue's real V2 light and channel names, while Native V1 follows SimHub's Hue group/endpoint naming. Device and theme settings are copied only where the plugin can safely match the endpoints, so review themes after switching backend.
+
 Important: keep one unique Effects index per physical lamp or Govee segment in SimHub Ambient Lights. If two endpoints share the same index, SimHub can route them through the same output slot, so they may mirror each other even when this plugin assigns different cockpit zones or alerts. The plugin warns about this setup requirement but leaves SimHub indexes untouched.
 
 For each endpoint, choose:
