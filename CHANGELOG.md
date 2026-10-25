@@ -1,5 +1,49 @@
 # Changelog
 
+## 1.24.0 — 2026-10-25
+
+### Music mode
+
+- Added music-reactive lighting while idle, with movement based on the cockpit zones assigned to your lights.
+- Choose Auto, Ambient, Pulse, Flow, Chase, Mirror, Spectrum or Classic.
+- Use automatic colours, preset palettes or your own custom palette.
+- Select participating lights and adjust Music brightness independently, with live preview. Other lights keep their normal idle output.
+- Automatic audio-output detection supports virtual mixer channels, with manual device selection available.
+- Added filtering for Windows system sounds and short alerts, automatic audio recovery and diagnostics.
+- Added Home status, bindings and Music power, style, colours and brightness controls across Stream Deck, Stream Dock and Ulanzi.
+
+### Automatic Dark mode
+
+- Added a configurable night schedule using supported games’ session time.
+- Optional experimental visual detection is available per game, with configurable night/day confirmation delays.
+- Automatic and Manual control support local, Lovely or DNR colours. Follow Lovely/DNR uses that plugin’s state and colour, with a local colour fallback.
+- Manual bindings take priority, with a Resume source button to return to automatic or external control.
+- New settings default to Automatic control and local colour; existing preferences are preserved.
+
+### Nitro Concepts IMMERSION LED — experimental
+
+- Added hardware setup, zone editing, Identify, cockpit lighting, themes, per-LED animations, effects and previews.
+- Integrated Nitro zones into Lights setup and Streaming mode.
+
+### Triple-monitor Mid zones
+
+- Added optional Mid zones independently for the left, centre and right monitors.
+- Disabled by default, with an adaptive zone map and existing configurations preserved.
+
+### License recovery
+
+- Added email-confirmed activation recovery after reinstalling Windows or replacing a PC.
+- Recognized reinstalls do not consume a transfer; replacement affects only the selected slot.
+
+### Other improvements
+
+- Added the Engine start **Voltage dip** style, up to ten repetitions and finer timing controls.
+- Improved Philips Hue Direct V2 reliability, WLED output and telemetry-based effects.
+- Home now shows only online equipment.
+- Added a visible choice when another ambient-light plugin conflicts with CAAL, without requiring a SimHub restart.
+- Improved brightness previews, controller feedback, update reliability and the built-in Guide.
+- Surface colour protection is now off by default for new settings; saved preferences are preserved.
+
 ## 1.23.0 - 2026-10-17
 
 - Separated captured colour from night-time bright-point rejection and exposure. Dashboard highlights remain limited for brightness without suppressing their colour contributions.
