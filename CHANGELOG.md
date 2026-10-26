@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.24.1 — 2026-10-26
+
+### Version selection
+
+- Choose a published stable GitHub release directly in About or the standalone installer, including older versions. View its release date and changelog before installing or reinstalling that exact version.
+- Downloads are validated before installation. Installation does not reset settings or keep local version backups; older releases may not support newer features or their settings.
+- Added themed version selectors and a confirmation dialog using the plugin's current accent colour, with readable text in the selected version and dropdown list. Updated the built-in Guide.
+
 ## 1.24.0 — 2026-10-25
 
 ### Music mode

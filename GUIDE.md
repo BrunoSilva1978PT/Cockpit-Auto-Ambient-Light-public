@@ -476,6 +476,16 @@ When supported controller software is installed but these controls are missing, 
 
 ## Troubleshooting
 
+### Install a different plugin version
+
+Open About and use Install a version to choose a published stable GitHub release. The list shows versions with the official plugin DLL, newest first, with release dates and the selected version's changelog. Refresh reloads the list; drafts and prereleases are excluded.
+
+Select the version you want and press Install or Reinstall, then confirm the SimHub restart. The selected release is downloaded and its DLL identity, version and available checksum are checked before installation. This can upgrade, reinstall or return to an older release. Installation does not reset your settings or activation. Older versions may ignore or change settings for newer features; choosing an older release does not restore its previous settings.
+
+The standalone installer has the same version selector and changelog. Use it if SimHub cannot start with the installed plugin. Choose a release, accept the EULA and install it; the installer can close SimHub when necessary, and Launch SimHub opens it again afterwards. If GitHub's full version list is unavailable, the installer can offer only the latest release; Refresh retries the list.
+
+Version selection requires internet access. It downloads the chosen release directly from GitHub; it does not keep local version backups or settings snapshots. Temporary downloads are removed after the operation. The normal update check continues to offer newer releases as before.
+
 ### Another ambient-light plugin is detected
 
 Sim Ambiance FX uses the same SimHub Ambient Lights control path as CAAL. Running both at the same time can send competing colour and brightness updates to the same lights, causing conflicts and unpredictable output. Home shows a notice so you can choose which plugin should control the lights; CAAL waits for your choice.
