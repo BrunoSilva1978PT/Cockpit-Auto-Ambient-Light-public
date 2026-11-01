@@ -1,5 +1,62 @@
 # Changelog
 
+## 1.24.3 — 2026-11-01
+
+### Controller integrations
+
+- Added a persistent **Don't ask again** choice and a Controllers-page switch for missing integration offers during SimHub startup. Installed integrations continue to receive automatic update checks, and manual installation remains available.
+- Stream Deck versions older than the integration's 6.9 minimum are now reported as incompatible instead of receiving a package they cannot install.
+- First-time Stream Deck installation now waits for and validates the installed plugin before installing the shared bridge or restarting SimHub, so a rejected package is no longer treated as success.
+
+### SyncLight / DX Light USB controllers
+
+- Marked this integration as experimental: the current 27-inch, 63-LED controller is physically validated, while other compatible controller models and LED layouts still require physical verification.
+- Added direct USB support for compatible addressable LED controllers, with automatic detection and reconnection and controller-reported product identity, UUID, firmware, display size and LED count.
+- Added global virtual LED-zone layouts and per-profile Ambient, Fixed or Disabled zone behaviour across cockpit output, fixed theme colours, Streaming, dark mode, effects and previews.
+- Animation layers now treat each SyncLight controller as one individual-LED strip in its native controller order and automatically preserve cockpit-selected ranges while driving.
+- Ordered animations now offer **Reverse LEDs** per assigned Nitro strip or SyncLight controller, without changing hardware zones or cockpit routing.
+- Migrates existing SyncLight animation assignments from separate virtual-zone rows to one full-controller row, preventing saved USB lights from disappearing from "Lights in this layer" after the individual-LED animation upgrade.
+- Added connection status, Rename and targeted red Identify without blacking out the rest of the strip. The controller runs at full hardware brightness while user controls remain percentage-based.
+- Added automatic RGB channel-order selection for known controller product IDs, with a manual override for other layouts.
+- Detects conflicting SyncLight / DX Light applications, reports the owning process and PID where available, and can close the application and retry.
+
+### Direct-output shutdown state
+
+- Added a per-controller **When plugin stops** choice for SyncLight USB: Turn off, Fixed color and Keep last color.
+- Added a per-box **When plugin stops** choice for Nitro: Restore SimHub profile, Turn off and Fixed color.
+- Shutdown states are applied on deliberate output release and normal SimHub shutdown.
+
+### Hardware connection status
+
+- Unified WLED, SyncLight USB and Nitro status colours and added a visible legend on Hardware.
+- Grey now means disabled or unavailable, blue discovered, yellow checking or reconnecting, orange a configuration warning, red offline/busy/error and green connected.
+- Added written state labels and actionable tooltips so connection status does not rely on colour alone.
+- Changing one WLED device now preserves every other device's last connection state and limits the immediate status/brightness refresh to the device that changed.
+- Replaced the SyncLight Home-row Wi-Fi hotspot glyph with the correct USB symbol.
+
+### Themes
+
+- Added Reorder with a drag-and-drop theme list in a custom dialog. A translucent theme preview follows the cursor and a line marks the drop position. Save applies the order to all theme selectors and Previous/Next while preserving each theme and the Idle, Hold idle and VR selections.
+- Added Add theme and Delete theme with a custom confirmation dialog. Existing themes and selections are preserved; Previous/Next cycles only the remaining themes. Deleting a theme used by Idle, Hold idle or VR shows its replacement before confirmation.
+- Hold idle can use a separate saved theme. The default, Same as idle theme, preserves existing settings and follows the normal idle selection.
+- Renamed Output themes to Theme editor and its theme selector to Theme. Updated the built-in Guide.
+
+### Govee Direct LAN
+
+- Added more detailed LAN discovery, firmware and packet diagnostics to help distinguish missing replies, invalid packets and network configuration issues.
+- Improved discovery handling when a device reports a missing or stale IP address.
+- Port-conflict status now identifies the process using UDP 4002 where possible and offers recovery actions for external applications, while keeping SimHub-owned conflicts separate.
+
+### LED animations
+
+- Corrected ordered strip animation handling and animation-layer refreshes for individual LEDs.
+
+### Advanced smoothing
+
+- Added optional independent Brightening, Darkening and Colour smoothing controls in Light response, all using the existing 0–100% response scale.
+- First use inherits the profile's current smoothing. Normal response and existing profiles stay unchanged when advanced smoothing is off; saved advanced values are retained when switching modes and included in profile copying, import and export.
+- Email-code requests now wait up to 60 seconds, reducing false timeout messages when activation or recovery emails take longer to send.
+
 ## 1.24.1 — 2026-10-26
 
 ### Version selection
