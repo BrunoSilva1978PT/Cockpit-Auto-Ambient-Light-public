@@ -38,7 +38,7 @@ Home always shows an informational status while CAAL operates without Ambient Li
 
 ## Main Features
 
-- A dedicated Updates page with automatic stable plugin updates enabled by default. Updates install in the background and become active at the next real SimHub restart; they never restart SimHub automatically. Running and installed versions are shown separately. Manual rollback cancels pending automatic work and persistently pauses automatic updates until explicitly re-enabled, including rollback through the standalone installer.
+- A dedicated Updates page with automatic stable plugin updates enabled by default. When an update is ready, a notice offers Update and restart now or When I close SimHub. Choosing later keeps the session running and activates the update on the next start, with a reminder on Home and Updates. The automatic window waits until SimHub is foreground and live driving output is inactive. SimHub only restarts immediately after an explicit choice. Running and installed versions are shown separately. Manual rollback cancels pending automatic work and persistently pauses automatic updates until explicitly re-enabled, including rollback through the standalone installer.
 
 - Automatic cockpit mask learning while driving. No manual rectangle drawing is required during normal use.
 - Optional Track ambience zone learned from moving non-cockpit scenery across the full capture, with robust internal regions and the same optional cool/neutral/warm-white protection as cockpit output.

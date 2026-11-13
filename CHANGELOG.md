@@ -2,6 +2,7 @@
 
 ## 1.24.5 — 2026-11-13
 
+- When an automatic update is ready, a notice offers Update and restart now or When I close SimHub. Choosing later keeps the session running and activates the new version on the next start, with a reminder on Home and Updates.
 - Direct Hue V2, Govee Direct LAN, WLED and SyncLight can now work with SimHub Ambient Lights completely disabled. Native light outputs still need Ambient Lights.
 - Existing capture monitors, light settings and themes are preserved. When Ambient Lights is unavailable, a prepared Direct Hue V2 or Govee Direct LAN setup can be used automatically while keeping the saved Native preference.
 - Home shows when CAAL is operating without Ambient Lights. Setup warnings only appear for configured hardware, and opening setup keeps the selected mode unchanged.
