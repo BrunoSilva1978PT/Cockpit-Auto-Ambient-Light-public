@@ -30,7 +30,11 @@ All rights are reserved by Bruno Silva.
 
 Before troubleshooting, update SimHub to the latest available version. This plugin reuses SimHub's internal Ambient Lights capture, effects and device pipeline, and older SimHub builds can expose different behaviour where some plugin features may not work correctly.
 
+Screen analysis prefers the existing Ambient Lights capture. When it is unavailable, CAAL uses a reduced-resolution consumer of SimHub's native capture engine while live cockpit output needs frames. Both paths use one quarter of each screen's width and height. Multiple monitors follow the existing capture selection and Windows layout, including three independent monitors without Surround. The native fallback uses up to 30 FPS per monitor and releases its consumers during pause, menus and idle; it does not change SimHub's "Only when a game is running" option or unfreeze another consumer's capture.
+
 ## Main Features
+
+- A dedicated Updates page with automatic stable plugin updates enabled by default. Updates install in the background and become active at the next real SimHub restart; they never restart SimHub automatically. Running and installed versions are shown separately. Manual rollback cancels pending automatic work and persistently pauses automatic updates until explicitly re-enabled, including rollback through the standalone installer.
 
 - Automatic cockpit mask learning while driving. No manual rectangle drawing is required during normal use.
 - Optional Track ambience zone learned from moving non-cockpit scenery across the full capture, with robust internal regions and the same optional cool/neutral/warm-white protection as cockpit output.

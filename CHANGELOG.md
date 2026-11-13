@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.24.4 — 2026-11-13
+
+- Fixed screen capture being lost after updating to SimHub 9.13.4 or later, which stops Ambient Lights capture when no native lighting devices are enabled.
+- Added automatic updates, enabled by default. New versions take effect the next time SimHub is restarted.
+- Added an Updates page to view changelogs and install other versions. Installing an older version pauses automatic updates until re-enabled.
+
 ## 1.24.3 — 2026-11-01
 
 ### Controller integrations

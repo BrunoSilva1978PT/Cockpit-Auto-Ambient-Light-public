@@ -498,17 +498,33 @@ If actions or icons remain old after updating, fully quit the controller applica
 
 When supported controller software is installed but these controls are missing, Cockpit Auto Ambient Light offers their first installation during SimHub startup. Once the components are installed, the plugin checks them automatically when SimHub starts. The bridge and each controller integration are versioned independently. SimHub restarts only when the shared bridge DLL itself needs an update, and a confirmation window is always shown before that bridge update is installed.
 
-## Troubleshooting
+## Updates
+
+### Updates tab and automatic updates
+
+Open Updates in the sidebar's System group, just above About. This page brings together automatic updates, the running and installed versions, update status, published stable releases and their changelogs. Open Updates in the sidebar footer takes you to the same page.
+
+The Automatic updates toggle is on by default and follows the plugin's selected theme colour. When enabled, stable plugin updates are downloaded, validated and installed in the background. Turn it off for manual installation; checks and version selection remain available. Check for updates runs a check immediately and can install a newer version when automatic updates are on.
+
+Background checks begin about 5 seconds after SimHub starts and repeat every 6 hours while SimHub stays open. If a background check or installation fails, the next background attempt is scheduled about 30 minutes later. Changing games does not reset the normal check interval.
+
+Once an automatic update is installed, Updates shows the running version separately from the installed version, with the notice "active after next SimHub restart". The sidebar footer shows the installed version and "Active after restart". These are notices inside the plugin; there is no popup or Windows notification. SimHub is never restarted automatically, so you can finish your session and close and reopen SimHub when convenient. Changing games does not activate the installed update. "No restart pending." means no different installed version is waiting.
 
 ### Install a different plugin version
 
-Open About and use Install a version to choose a published stable GitHub release. The list shows versions with the official plugin DLL, newest first, with release dates and the selected version's changelog. Refresh reloads the list; drafts and prereleases are excluded.
+Open Updates and use Install a version to choose a published stable GitHub release. The list shows versions with the official plugin DLL, newest first, with release dates and the selected version's changelog. Refresh reloads the list; drafts and prereleases are excluded.
 
 Select the version you want and press Install or Reinstall, then confirm the SimHub restart. The selected release is downloaded and its DLL identity, version and available checksum are checked before installation. This can upgrade, reinstall or return to an older release. Installation does not reset your settings or activation. Older versions may ignore or change settings for newer features; choosing an older release does not restore its previous settings.
 
 The standalone installer has the same version selector and changelog. Use it if SimHub cannot start with the installed plugin. Choose a release, accept the EULA and install it; the installer can close SimHub when necessary, and Launch SimHub opens it again afterwards. If GitHub's full version list is unavailable, the installer can offer only the latest release; Refresh retries the list.
 
-Version selection requires internet access. It downloads the chosen release directly from GitHub; it does not keep local version backups or settings snapshots. Temporary downloads are removed after the operation. The normal update check continues to offer newer releases as before.
+Version selection requires internet access. It downloads the chosen release directly from GitHub; it does not keep local version backups or settings snapshots. Temporary downloads are removed after the operation.
+
+### Rollback and resuming automatic updates
+
+Rolling back also cancels pending automatic work and pauses automatic updates, including when replacing a newer DLL already installed for the next restart. Checks and manual installation remain available. This pause survives restarts and version changes until you turn Automatic updates on again in Updates. The standalone installer preserves the same rollback decision.
+
+## Troubleshooting
 
 ### Another ambient-light plugin is detected
 
