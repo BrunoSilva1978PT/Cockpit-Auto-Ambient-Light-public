@@ -10,7 +10,11 @@ The goal is to make physical cockpit lights react to sun, shadow and night light
 
 Alert effects can also be assigned to unticked endpoints. That lets some lights follow the cockpit while other lights stay effects-only.
 
-The plugin uses SimHub's native Ambient Lights capture engine instead of opening a second capture pipeline.
+The plugin captures the screen through SimHub's capture library. Hue Direct V2, Govee Direct LAN, WLED and SyncLight USB work with Ambient Lights disabled. Nitro needs SimHub Devices. Ambient Lights is needed only for native light outputs.
+
+If Ambient Lights is disabled, a prepared Hue Direct V2 or Govee Direct LAN setup can be used automatically. Home and Hardware show the active backend or offer Configure Direct when pairing, devices or matching assignments are missing. Your saved Native preference, existing assignments, themes and capture monitors are kept. Bluetooth and Adalight native outputs still require Ambient Lights. Retry on Hardware keeps an automatic Direct LAN setup available if it could not start.
+
+Home keeps an informational status visible while operating without Ambient Lights. Setup warnings apply only to configured hardware. Configure Direct opens the matching Hardware section without changing your saved backend; select Direct there to begin setup.
 
 Native SimHub Ambient Lights is still the default device source. Configure and enable Hue V1, Govee, Bluetooth and Adalight devices in SimHub Ambient Lights first, then pick which endpoints this plugin should control.
 
@@ -36,7 +40,7 @@ Each output type on the Lights setup tab has its own Enabled / Disabled for this
 
 4. For Govee Direct LAN, enable LAN Control in Govee Home, close Govee Desktop, open Hardware, select Direct LAN, then use Add devices to scan and choose the devices the plugin should own.
 
-5. On the plugin's Capture page, check Capture monitor and select the screen(s) showing the simulator. Make sure the SimuLight / Ambient Lights master output is enabled. Direct devices and Nitro still use this same screen capture for their live cockpit colours.
+5. On the plugin's Capture page, check Capture monitor and select the screen(s) showing the simulator. The current monitor selection is preserved when upgrading and is saved by CAAL. Direct devices and Nitro do not need Ambient Lights enabled for live cockpit colours.
 
 6. Keep Enable plugin on in Home. On Lights setup, choose the Global output layout: Global for one shared cockpit value, or Cockpit zones / triples for per-light zone routing.
 
@@ -546,7 +550,7 @@ Use CHECK NOW and INSTALL / UPDATE on Controllers to update the matching integra
 
 ### Start with latest SimHub
 
-Update SimHub first, especially for Ambient Lights, Govee, Bluetooth, capture or effects routing problems. This plugin reuses SimHub's internal Ambient Lights capture and effects pipeline, so older SimHub builds can cause behaviour this plugin cannot reliably fix.
+Update SimHub first, especially for Ambient Lights, Govee, Bluetooth, capture or effects routing problems. This plugin uses SimHub's screen capture library and the native Ambient Lights effects pipeline for native devices, so older SimHub builds can cause compatibility problems.
 
 ### Lights do not react
 
@@ -610,7 +614,7 @@ Effects-only lamps need at least one alert effect ticked on the Lights setup tab
 
 ### SimHub scene settings restore
 
-When the plugin is enabled, it saves the current SimHub Ambient Lights scene brightness, effect profile brightness and luminosity gamma settings before applying its own 100% brightness and neutral gamma defaults. When the plugin is disabled, those saved settings are restored. If you change those SimHub settings while this plugin is active, the plugin keeps the new values instead of overwriting them on disable, and saves them as the new restore point.
+When native lights are used, the plugin saves the current SimHub Ambient Lights scene brightness, effect profile brightness and luminosity gamma settings before applying its own 100% brightness and neutral gamma defaults. When the plugin is disabled, those saved settings are restored. If you change those SimHub settings while this plugin is active, the plugin keeps the new values instead of overwriting them on disable, and saves them as the new restore point.
 
 ### Mask never becomes active
 
@@ -618,7 +622,7 @@ Drive above walking speed in cockpit camera. The detector only learns while the 
 
 ### SimHub capture freezes in fullscreen
 
-This plugin uses SimHub's native Ambient Lights screen capture. If that capture freezes when a game enters the track in fullscreen mode, check the game executable Compatibility settings and leave Disable fullscreen optimizations off. Borderless/windowed mode is the usual fallback when a game blocks native screen capture.
+This plugin uses SimHub's native screen capture library. If that capture freezes when a game enters the track in fullscreen mode, check the game executable Compatibility settings and leave Disable fullscreen optimizations off. Borderless/windowed mode is the usual fallback when a game blocks native screen capture.
 
 ### Wrong colours in triples
 
@@ -630,7 +634,7 @@ Enable the debug log on the Diagnostics tab only when troubleshooting. The plugi
 
 ### Factory reset plugin settings
 
-Use Factory reset on the Maintenance page only as a last resort for corrupted or legacy plugin configuration. It resets this plugin's settings and backups, but keeps SimHub Ambient Lights devices, profiles and Effects indexes untouched.
+Use Factory reset on the Maintenance page only as a last resort for corrupted or legacy plugin configuration. It resets this plugin's settings and backups, but keeps your capture monitors and SimHub Ambient Lights devices, profiles and Effects indexes untouched.
 
 ### Diagnostics zones
 

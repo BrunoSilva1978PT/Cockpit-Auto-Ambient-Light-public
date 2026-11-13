@@ -1,6 +1,6 @@
 # Cockpit Auto Ambient Light
 
-Cockpit Auto Ambient Light is a SimHub plugin that learns the stable cockpit area from SimHub Ambient Lights screen capture and drives ambient lights from in-cockpit brightness and colour changes.
+Cockpit Auto Ambient Light is a SimHub plugin that learns the stable cockpit area from screen capture and drives ambient lights from in-cockpit brightness and colour changes.
 
 It is designed for cockpit-camera driving. Sunlight, shadows, night lighting, idle themes, VR themes and selected alert effects can be routed to Philips Hue, Govee, Bluetooth and Adalight endpoints from SimHub Ambient Lights, to WLED network LED controllers, or to compatible SyncLight / DX Light USB controllers driven directly by the plugin.
 
@@ -16,7 +16,7 @@ All rights are reserved by Bruno Silva.
 
 ## Requirements
 
-- SimHub with Ambient Lights configured and enabled.
+- SimHub. Enable Ambient Lights only when using native Hue V1, Govee, Bluetooth or Adalight outputs. Direct outputs work with that module disabled; Nitro uses SimHub Devices.
 - .NET Framework 4.8 through SimHub.
 - One or more supported light outputs:
   - Philips Hue through SimHub native Hue V1 output.
@@ -28,9 +28,13 @@ All rights are reserved by Bruno Silva.
   - WLED network LED controllers (ESP8266/ESP32) driven directly by this plugin over your local network, with no SimHub Adalight, app or cloud required.
   - Experimental support for compatible SyncLight / DX Light USB addressable LED controllers detected and driven directly by this plugin.
 
-Before troubleshooting, update SimHub to the latest available version. This plugin reuses SimHub's internal Ambient Lights capture, effects and device pipeline, and older SimHub builds can expose different behaviour where some plugin features may not work correctly.
+Before troubleshooting, update SimHub to the latest available version. This plugin uses SimHub's screen capture library and its Ambient Lights effects and device pipeline for native outputs, so older SimHub builds can cause compatibility problems.
 
-Screen analysis prefers the existing Ambient Lights capture. When it is unavailable, CAAL uses a reduced-resolution consumer of SimHub's native capture engine while live cockpit output needs frames. Both paths use one quarter of each screen's width and height. Multiple monitors follow the existing capture selection and Windows layout, including three independent monitors without Surround. The native fallback uses up to 30 FPS per monitor and releases its consumers during pause, menus and idle; it does not change SimHub's "Only when a game is running" option or unfreeze another consumer's capture.
+CAAL saves its own capture monitor selection and automatically preserves the existing Ambient Lights selection when upgrading, including three independent monitors without Surround. Screen analysis can reuse a matching Ambient Lights capture when available, or capture independently through SimHub's screen capture library with Ambient Lights disabled. Both paths use reduced-resolution frames. Independent capture uses up to 30 FPS per monitor and releases its consumers during pause, menus and idle. Direct-only output leaves the Ambient Lights master switch and capture settings unchanged.
+
+If Ambient Lights is absent after SimHub finishes loading, CAAL can automatically use a previously configured Hue Direct V2 or Govee Direct LAN setup. Native remains the saved preference; the active backend and any setup required are explained on Home and Hardware. Existing assignments, themes and monitors are kept. Automatic Hue switching requires a previously resolved native-to-direct light map when native assignments exist. Incompatible layouts or native exclusions require review in Direct setup. Bluetooth and Adalight native outputs still need Ambient Lights. A Direct LAN startup failure keeps Direct available for Retry when native output is unavailable.
+
+Home always shows an informational status while CAAL operates without Ambient Lights. Setup warnings refer to configured hardware, rather than old profile or theme entries. Configure Direct opens the corresponding Hardware section; choose a backend there to start setup. An incomplete setup remains visible for configured devices until the required bridge/area or device list is ready.
 
 ## Main Features
 
@@ -58,8 +62,8 @@ Screen analysis prefers the existing Ambient Lights capture. When it is unavaila
 ## First Setup
 
 1. Update SimHub to the latest available version.
-2. Configure and enable your lights in SimHub Ambient Lights.
-3. Give every lamp, Hue segment, Govee segment or other endpoint a unique Effects index in SimHub Ambient Lights.
+2. Configure your direct devices in the plugin, or configure and enable native devices in SimHub Ambient Lights.
+3. For native Ambient Lights outputs, give every lamp or segment a unique Effects index.
 4. Turn on Enable plugin on Home.
 5. Choose the Global output layout on Lights setup: Global for one shared cockpit value, or Cockpit zones / triples for per-light routing.
 6. Use Lights setup to enable the output types needed by the profile and choose which endpoints follow cockpit brightness. For WLED, add each controller by IP or with Scan, set its LED count, split it into zones, and set that device's brightness to 100% in its own WLED web page. Compatible SyncLight / DX Light USB controllers are detected automatically; split their reported LED count into physical zones on Hardware.
@@ -228,11 +232,10 @@ Start by updating SimHub. This matters most for Ambient Lights capture, Govee, B
 
 If lights do not react:
 
-- Check that SimHub Ambient Lights master output is enabled.
-- Check that the devices are enabled in SimHub Ambient Lights.
+- For native outputs, check that the Ambient Lights module, master output and devices are enabled. Direct outputs do not require that module.
 - Check that the matching output type is enabled for the profile on Lights setup.
 - Use Identify to confirm the bridge or SimHub device path is working.
-- Make sure each endpoint has a unique Effects index in SimHub Ambient Lights.
+- For native outputs, make sure each endpoint has a unique Effects index in SimHub Ambient Lights.
 
 If Direct Hue V2 does not sync:
 
@@ -263,7 +266,7 @@ One shared colour pipeline drives All, every cockpit zone and Track ambience. Su
 
 If fullscreen capture freezes, check the game executable Compatibility settings and leave "Disable fullscreen optimizations" off, or use borderless/windowed mode.
 
-If a setup still behaves like an old configuration is stuck, use Factory reset on the Maintenance page. It resets only Cockpit Auto Ambient Light settings and known settings backups; SimHub Ambient Lights devices, profiles and Effects indexes are kept.
+If a setup still behaves like an old configuration is stuck, use Factory reset on the Maintenance page. It resets Cockpit Auto Ambient Light settings and known settings backups while keeping your capture monitors and SimHub Ambient Lights devices, profiles and Effects indexes.
 
 ## Legal Notices
 
